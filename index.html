@@ -229,7 +229,7 @@
       <a class="index-excerpt" href="/fix-in-functional-programming/" target="_self">
         <div>
           
-          先看看 fix 是什么 这是 fix 在 Haskell 中的定义： 12fix :: (a -&gt; a) -&gt; afix f &#x3D; let x &#x3D; f x in x 哇！好怪，这个 x 是什么？我们好像只能知道它满足 x &#x3D; f x，但是这个值具体是怎么求的呢？  那我们还是先看看 fix 的应用吧 通常我们会这样定义阶乘。 123fact :: Int -&gt; Intfact 0
+          先看看 fix 是什么 这是 fix 在 Haskell 中的定义： fix :: (a -&gt; a) -&gt; a fix f &#x3D; let x &#x3D; f x in x 哇！好怪，这个 x 是什么？我们好像只能知道它满足 x &#x3D; f x，但是这个值具体是怎么求的呢？  那我们还是先看看 fix 的应用吧 通常我们会这样定义阶乘。 fact :: Int -&gt; Int fact 0 &#x3D; 1 fact n
         </div>
       </a>
 
