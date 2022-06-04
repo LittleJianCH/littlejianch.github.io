@@ -17,8 +17,8 @@
   <meta name="keywords" content="">
   
     <meta property="og:type" content="website">
-<meta property="og:title" content="LittleJian&#39;s Blog">
-<meta property="og:url" content="https://littlejianch.github.io/index.html">
+<meta property="og:title" content="Tags - functional-programming">
+<meta property="og:url" content="https://littlejianch.github.io/tags/functional-programming/index.html">
 <meta property="og:site_name" content="LittleJian&#39;s Blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="LittleJian">
@@ -26,7 +26,7 @@
   
   
   
-  <title>LittleJian&#39;s Blog</title>
+  <title>Tags - functional-programming - LittleJian&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -78,7 +78,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 100vh;">
+<div class="header-inner" style="height: 80vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -183,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="唔 这里是小简碎碎念的地方"></span>
+            <span id="subtitle" data-typed-text="Tags - functional-programming"></span>
           
         </div>
 
@@ -207,99 +207,28 @@
     
       <div class="container nopadding-x-md">
         <div id="board"
-          style="margin-top: 0">
+          >
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-
-  <div class="row mx-auto index-card">
+<div class="list-group">
+  <p class="h4">1 posts in total</p>
+  <hr>
+  
+  
     
+      
+      <p class="h5">2022</p>
     
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/compute-characteristic-polynomial-in-On3-time/" target="_self">
-          一个 O(n^3) 计算矩阵特征多项式的算法
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/compute-characteristic-polynomial-in-On3-time/" target="_self">
-        <div>
-          
-          先看一个粗暴的朴素算法 首先是矩阵特征多项式的定义： φA(λ)&#x3D;det⁡(A−λI)\varphi_A(\lambda) &#x3D; \det(A - \lambda I) φA​(λ)&#x3D;det(A−λI) 最直接的做法就是直接按行展开矩阵行列式并递归计算。这样是一个 O(n!)O(n!)O(n!) 的暴力算法，显然是不能接受的。  再看一个多项式复杂度的简单算法 由朴素算法可知，φA(λ)\varp
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-03 17:57" pubdate>
-              2022-06-03
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/math/">#math</a>
-            
-              <a href="/tags/linear-algebra/">#linear-algebra</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/fix-in-functional-programming/" target="_self">
-          函数式编程中的 fix
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/fix-in-functional-programming/" target="_self">
-        <div>
-          
-          先看看 fix 是什么 这是 fix 在 Haskell 中的定义： fix :: (a -&gt; a) -&gt; a fix f &#x3D; let x &#x3D; f x in x 哇！好怪，这个 x 是什么？我们好像只能知道它满足 x &#x3D; f x，但是这个值具体是怎么求的呢？  那我们还是先看看 fix 的应用吧 通常我们会这样定义阶乘。 fact :: Int -&gt; Int fact 0 &#x3D; 1 fact n
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-19 11:26" pubdate>
-              2022-05-19
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/functional-programming/">#functional-programming</a>
-            
-              <a href="/tags/haskell/">#haskell</a>
-            
-              <a href="/tags/racket/">#racket</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+    <a href="/fix-in-functional-programming/" class="list-group-item list-group-item-action">
+      <time>05-19</time>
+      <div class="list-group-item-title">函数式编程中的 fix</div>
+    </a>
+  
+</div>
 
 
 
