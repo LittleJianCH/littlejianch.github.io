@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>在不改变提交时间的前提下修改一条 commit 的 message</title>
+    <link href="/tmp/"/>
+    <url>/tmp/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前景提要"><a class="markdownIt-Anchor" href="#前景提要"></a> 前景提要</h1><p>某天晚上提交完代码之后发现 Jun 29 的那条提交里把 change 拼写成了 changed。</p><p><img src="github-screenshot.jpg" alt="" /></p><p>作为一个强迫症是肯定要改过来的啦（</p><h1 id="第一次尝试"><a class="markdownIt-Anchor" href="#第一次尝试"></a> 第一次尝试</h1><p>作为一个在投实习前特地做完了 <a href="https://learngitbranching.js.org">learngitbranching</a> 的人，这点 git 操作肯定难不倒我啦。</p><p>直接 <code>git rebase -i HEAD~5</code> ，把 <code>changed some options in tsconfig</code> 前面的 <code>pick</code> 改成 <code>reword</code> ，然后可以把 message 改回来了。</p><p>一通操作完后执行一下 <code>git log</code> 看看，时间（author date）都没问题，可以直接 force push 提交到 GitHub 上了。</p><p>结果去 GitHub 上一看发现，这五条的 commit 都变成了 <code>commits on Jul 9, 2022</code> ，这可不对啊！</p><h1 id="一个正确的操作方式"><a class="markdownIt-Anchor" href="#一个正确的操作方式"></a> 一个正确的操作方式</h1><p>去网上查了一通资料发现，git 有 author date 和 commit date 两个时间。rebase 会把影响到的 commit 重新提交一次，但不影响 author date，所以我通过 <code>git log</code> 看到的时间没有变化。</p><p>要想不改变提交时间，就得在重新提交时把 commit date 改成原来的时间，只要设置 <code>GIT_COMMITTER_DATE</code> 就好了。</p><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">GIT_COMMITTER_DATE</span><span class="token operator">=</span><span class="token string">"2022-06-29T21:12:32"</span> <span class="token function">git</span> commit --amend --date<span class="token operator">=</span><span class="token string">"2022-06-29T21:12:32"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><p>鉴于这里我只用操作五条 commit，所以直接一条一条重复做类似的操作就好了。如果批量改可以考虑用 <code>git filter-branch</code> 。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>在不改变提交时间的前提下修改一条 commit 的 message</title>
+    <link href="/reword-a-github-commit-message-without-changing-commit-date/"/>
+    <url>/reword-a-github-commit-message-without-changing-commit-date/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前景提要"><a class="markdownIt-Anchor" href="#前景提要"></a> 前景提要</h1><p>某天晚上提交完代码之后发现 Jun 29 的那条提交里把 change 拼写成了 changed。</p><p><img src="github-screenshot.jpg" alt="" /></p><p>作为一个强迫症是肯定要改过来的啦（</p><h1 id="第一次尝试"><a class="markdownIt-Anchor" href="#第一次尝试"></a> 第一次尝试</h1><p>作为一个在投实习前特地做完了 <a href="https://learngitbranching.js.org">learngitbranching</a> 的人，这点 git 操作肯定难不倒我啦。</p><p>直接 <code>git rebase -i HEAD~5</code> ，把 <code>changed some options in tsconfig</code> 前面的 <code>pick</code> 改成 <code>reword</code> ，然后可以把 message 改回来了。</p><p>一通操作完后执行一下 <code>git log</code> 看看，时间（author date）都没问题，可以直接 force push 提交到 GitHub 上了。</p><p>结果去 GitHub 上一看发现，这五条的 commit 都变成了 <code>commits on Jul 9, 2022</code> ，这可不对啊！</p><h1 id="一个正确的操作方式"><a class="markdownIt-Anchor" href="#一个正确的操作方式"></a> 一个正确的操作方式</h1><p>去网上查了一通资料发现，git 有 author date 和 commit date 两个时间。rebase 会把影响到的 commit 重新提交一次，但不影响 author date，所以我通过 <code>git log</code> 看到的时间没有变化。</p><p>要想不改变提交时间，就得在重新提交时把 commit date 改成原来的时间，只要设置 <code>GIT_COMMITTER_DATE</code> 就好了。</p><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">GIT_COMMITTER_DATE</span><span class="token operator">=</span><span class="token string">"2022-06-29T21:12:32"</span> <span class="token function">git</span> commit --amend --date<span class="token operator">=</span><span class="token string">"2022-06-29T21:12:32"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><p>鉴于这里我只用操作五条 commit，所以直接一条一条重复做类似的操作就好了。如果批量改可以考虑用 <code>git filter-branch</code> 。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>一个 O(n^3) 计算矩阵特征多项式的算法</title>
     <link href="/compute-characteristic-polynomial-in-On3-time/"/>
     <url>/compute-characteristic-polynomial-in-On3-time/</url>
