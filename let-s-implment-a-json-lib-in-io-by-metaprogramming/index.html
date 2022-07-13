@@ -16,24 +16,24 @@
   <meta name="author" content="LittleJian">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前景提要 某天晚上提交完代码之后发现 Jun 29 的那条提交里把 change 拼写成了 changed。  作为一个强迫症是肯定要改过来的啦（  第一次尝试 作为一个在投实习前特地做完了 learngitbranching 的人，这点 git 操作肯定难不倒我啦。 直接 git rebase -i HEAD~5 ，把 changed some options in tsconfig 前面的">
+    <meta name="description" content="首先，元编程是什么  Metaprogramming is the process of writing computer programs that treat programs as data, enabling them to analyze or transform existing programs or generate new ones.  按照中文社区比较流行的说法就是……「代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在不改变提交时间的前提下修改一条 commit 的 message">
-<meta property="og:url" content="https://littlejianch.github.io/reword-a-github-commit-message-without-changing-commit-date/index.html">
+<meta property="og:title" content="一起来实现一个基于元编程的 Io-JSON 库吧！">
+<meta property="og:url" content="https://littlejianch.github.io/let-s-implment-a-json-lib-in-io-by-metaprogramming/index.html">
 <meta property="og:site_name" content="LittleJian&#39;s Blog">
-<meta property="og:description" content="前景提要 某天晚上提交完代码之后发现 Jun 29 的那条提交里把 change 拼写成了 changed。  作为一个强迫症是肯定要改过来的啦（  第一次尝试 作为一个在投实习前特地做完了 learngitbranching 的人，这点 git 操作肯定难不倒我啦。 直接 git rebase -i HEAD~5 ，把 changed some options in tsconfig 前面的">
+<meta property="og:description" content="首先，元编程是什么  Metaprogramming is the process of writing computer programs that treat programs as data, enabling them to analyze or transform existing programs or generate new ones.  按照中文社区比较流行的说法就是……「代码">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://littlejianch.github.io/reword-a-github-commit-message-without-changing-commit-date/github-screenshot.jpg">
-<meta property="article:published_time" content="2022-07-11T01:20:34.000Z">
-<meta property="article:modified_time" content="2022-07-12T01:54:50.561Z">
+<meta property="article:published_time" content="2022-07-12T13:55:35.000Z">
+<meta property="article:modified_time" content="2022-07-13T04:36:44.823Z">
 <meta property="article:author" content="LittleJian">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="Io">
+<meta property="article:tag" content="metaprgramming">
+<meta property="article:tag" content="json">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://littlejianch.github.io/reword-a-github-commit-message-without-changing-commit-date/github-screenshot.jpg">
   
   
   
-  <title>在不改变提交时间的前提下修改一条 commit 的 message - LittleJian&#39;s Blog</title>
+  <title>一起来实现一个基于元编程的 Io-JSON 库吧！ - LittleJian&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="在不改变提交时间的前提下修改一条 commit 的 message"></span>
+            <span id="subtitle" data-typed-text="一起来实现一个基于元编程的 Io-JSON 库吧！"></span>
           
         </div>
 
@@ -211,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-11 09:20" pubdate>
-          July 11, 2022 am
+        <time datetime="2022-07-12 21:55" pubdate>
+          July 12, 2022 pm
         </time>
       </span>
     
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          641 words
+          1.8k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          6 mins
+          16 mins
         
       </span>
     
@@ -272,25 +272,77 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">在不改变提交时间的前提下修改一条 commit 的 message</h1>
+            <h1 style="display: none">一起来实现一个基于元编程的 Io-JSON 库吧！</h1>
             
             <div class="markdown-body">
               
-              <h1 id="前景提要"><a class="markdownIt-Anchor" href="#前景提要"></a> 前景提要</h1>
-<p>某天晚上提交完代码之后发现 Jun 29 的那条提交里把 change 拼写成了 changed。</p>
-<p><img src="github-screenshot.jpg" srcset="/img/loading.gif" lazyload alt="" /></p>
-<p>作为一个强迫症是肯定要改过来的啦（</p>
-<h1 id="第一次尝试"><a class="markdownIt-Anchor" href="#第一次尝试"></a> 第一次尝试</h1>
-<p>作为一个在投实习前特地做完了 <a target="_blank" rel="noopener" href="https://learngitbranching.js.org">learngitbranching</a> 的人，这点 git 操作肯定难不倒我啦。</p>
-<p>直接 <code>git rebase -i HEAD~5</code> ，把 <code>changed some options in tsconfig</code> 前面的 <code>pick</code> 改成 <code>reword</code> ，然后可以把 message 改回来了。</p>
-<p>一通操作完后执行一下 <code>git log</code> 看看，时间（author date）都没问题，可以直接 force push 提交到 GitHub 上了。</p>
-<p>结果去 GitHub 上一看发现，这五条的 commit 都变成了 <code>commits on Jul 9, 2022</code> ，这可不对啊！</p>
-<h1 id="一个正确的操作方式"><a class="markdownIt-Anchor" href="#一个正确的操作方式"></a> 一个正确的操作方式</h1>
-<p>去网上查了一通资料发现，git 有 author date 和 commit date 两个时间。rebase 会把影响到的 commit 重新提交一次，但不影响 author date，所以我通过 <code>git log</code> 看到的时间没有变化。</p>
-<p>要想不改变提交时间，就得在重新提交时把 commit date 改成原来的时间，只要设置 <code>GIT_COMMITTER_DATE</code> 就好了。</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">GIT_COMMITTER_DATE</span><span class="token operator">=</span><span class="token string">"2022-06-29T21:12:32"</span> <span class="token function">git</span> commit --amend --date<span class="token operator">=</span><span class="token string">"2022-06-29T21:12:32"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
-<p>鉴于这里我只用操作五条 commit，所以直接一条一条重复做类似的操作就好了。如果批量改可以考虑用 <code>git filter-branch</code> 。</p>
-
+              <h1 id="首先元编程是什么"><a class="markdownIt-Anchor" href="#首先元编程是什么"></a> 首先，元编程是什么</h1>
+<blockquote>
+<p>Metaprogramming is the process of writing computer programs that treat programs as data, enabling them to analyze or transform existing programs or generate new ones.</p>
+</blockquote>
+<p>按照中文社区比较流行的说法就是……「代码即数据」！</p>
+<p>即是通过代码来处理或生成代码，可以实现一些类似「生成重复繁琐的代码」、「自定义语法」的功能。这里我们就考虑利用 Io 的元编程功能自定义语法，让 Io “以为” JSON 是一段合法的 Io 代码。</p>
+<h1 id="先来看看-io-眼中的-json"><a class="markdownIt-Anchor" href="#先来看看-io-眼中的-json"></a> 先来看看 Io 眼中的 JSON</h1>
+<p>这是一段 JSON 代码：</p>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"Bob Smith"</span><span class="token operator">:</span> <span class="token string">"111-111-111"</span><span class="token punctuation">,</span>
+  <span class="token property">"Sally Johnson"</span><span class="token operator">:</span> 
+  <span class="token punctuation">&#123;</span> 
+    <span class="token property">"phone"</span><span class="token operator">:</span> <span class="token string">"222-222-222"</span><span class="token punctuation">,</span> 
+    <span class="token property">"email"</span><span class="token operator">:</span> <span class="token string">"abc@efg.com"</span> 
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"number"</span><span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+  <span class="token property">"list"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p>因为 Io 允许我们自定义 <code>&#123;&#125;</code> 和 <code>[]</code> 的行为，并且会把它们翻译成 <code>curlyBrackets</code> 和 <code>squareBrackets</code> ，这段代码就会被解释成这样：</p>
+<div class="code-wrapper"><pre class="line-numbers language-io" data-language="io"><code class="language-io">curlyBrackets<span class="token punctuation">(</span>
+  <span class="token string">"Bob Smith"</span><span class="token punctuation">:</span> <span class="token string">"111-111-111"</span><span class="token punctuation">,</span>
+  <span class="token string">"Sally Johnson"</span><span class="token punctuation">:</span> curlyBrackets<span class="token punctuation">(</span>
+    <span class="token string">"phone"</span><span class="token punctuation">:</span> <span class="token string">"222-222-222"</span><span class="token punctuation">,</span> <span class="token string">"email"</span><span class="token punctuation">:</span> <span class="token string">"abc@efg.com"</span>
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token string">"number"</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+  <span class="token string">"list"</span><span class="token punctuation">:</span> squareBrackets<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p>再通过 <code>OperatorTable addAssignOperator(&quot;:&quot;, &quot;assign&quot;)</code> 把 <code>:</code> 设置为一个 assign operator，这段 JSON 就会被识别为：</p>
+<div class="code-wrapper"><pre class="line-numbers language-io" data-language="io"><code class="language-io">curlyBrackets<span class="token punctuation">(</span>
+  assign<span class="token punctuation">(</span><span class="token string">"\"Bob Smith\""</span><span class="token punctuation">,</span> <span class="token string">"111-111-111"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  assign<span class="token punctuation">(</span><span class="token string">"\"Sally Johnson\""</span><span class="token punctuation">,</span> curlyBrackets<span class="token punctuation">(</span>
+    assign<span class="token punctuation">(</span><span class="token string">"\"phone\""</span><span class="token punctuation">,</span> <span class="token string">"222-222-222"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> assign<span class="token punctuation">(</span><span class="token string">"\"email\""</span><span class="token punctuation">,</span> <span class="token string">"abc@efg.com"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  assign<span class="token punctuation">(</span><span class="token string">"\"number\""</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  assign<span class="token punctuation">(</span><span class="token string">"\"list\""</span><span class="token punctuation">,</span> squareBrackets<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p><strong>注意</strong>，由于 Io 会把 assign operator 左侧作为变量名并转为字符串作为 assign 的参数，所以我们后续处理时还要把 JSON 原有的双引号去掉。</p>
+<p>做到这里事情就比较简单了，我们只要实现 <code>curlyBrackets</code> 、 <code>squareBrackets</code> 和 <code>assign</code> 就可以了。</p>
+<h1 id="具体实现"><a class="markdownIt-Anchor" href="#具体实现"></a> 具体实现</h1>
+<p>为了便于实现我们可以把 JSON 作为 Map 的一个子类。</p>
+<div class="code-wrapper"><pre class="line-numbers language-Io" data-language="Io"><code class="language-Io">JSON &#x3D; Map clone<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<h2 id="curlybrackets"><a class="markdownIt-Anchor" href="#curlybrackets"></a> curlyBrackets</h2>
+<p>根据 JSON 的结构，每个 <code>culyBrackets</code> 的参数都是若干个 <code>assign</code> 语句。那么通过 Io 原生的<strong>消息操作</strong><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="如果有机会的话会考虑再写一篇关于 Io 消息操作的博文
+">[1]</span></a></sup> 把每一条 <code>assign</code> 提取出来，并在当前的 JSON 环境下执行即可。</p>
+<div class="code-wrapper"><pre class="line-numbers language-Io" data-language="Io"><code class="language-Io">JSON curlyBrackets :&#x3D; method(
+  call message arguments foreach(arg,
+    doMessage(arg)
+  )
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h2 id="squarebrackets"><a class="markdownIt-Anchor" href="#squarebrackets"></a> squareBrackets</h2>
+<p>对于一个 <code>squareBrackets(x1, x2, ...)</code> 语句，只要对 <code>xi</code> 计算后，重新组成一个 <code>List</code> 。</p>
+<div class="code-wrapper"><pre class="line-numbers language-Io" data-language="Io"><code class="language-Io">JSON squareBrackets :&#x3D; method(
+  call message arguments map(x, doMessage(x))
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<h2 id="assign"><a class="markdownIt-Anchor" href="#assign"></a> assign</h2>
+<p>由于 <code>JSON</code> 直接继承于 <code>Map</code>，所以 <code>assign</code> 只要把第一个参数的双引号去掉后用 <code>atPut</code> 插入一个 key-value 对。</p>
+<p>因为 <code>assign</code> 的 <code>key</code> 参数是 immutable 的状态，还需要先做一个 <code>asMutable</code> 操作。</p>
+<div class="code-wrapper"><pre class="line-numbers language-Io" data-language="Io"><code class="language-Io">JSON assign :&#x3D; method(key, value,
+  atPut(
+    key asMutable removePrefix(&quot;\&quot;&quot;) removeSuffix(&quot;\&quot;&quot;),
+    value
+  )
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h2 id="完整实现"><a class="markdownIt-Anchor" href="#完整实现"></a> 完整实现</h2>
+<p>整个库的关键部分就是上文这些，完整的代码放在我的 <a target="_blank" rel="noopener" href="https://github.com/LittleJianCH/IoJSON">GitHub 仓库</a>里。</p>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>如果有机会的话会考虑再写一篇关于 Io 消息操作的博文
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               
             </div>
             <hr/>
@@ -301,7 +353,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/git/">#git</a>
+        <a href="/tags/Io/">#Io</a>
+      
+        <a href="/tags/metaprgramming/">#metaprgramming</a>
+      
+        <a href="/tags/json/">#json</a>
       
     </div>
   
@@ -313,8 +369,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>在不改变提交时间的前提下修改一条 commit 的 message</div>
-      <div>https://littlejianch.github.io/reword-a-github-commit-message-without-changing-commit-date/</div>
+      <div>一起来实现一个基于元编程的 Io-JSON 库吧！</div>
+      <div>https://littlejianch.github.io/let-s-implment-a-json-lib-in-io-by-metaprogramming/</div>
     </div>
     <div class="license-meta">
       
@@ -326,7 +382,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>July 11, 2022</div>
+          <div>July 12, 2022</div>
         </div>
       
       
@@ -356,18 +412,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/let-s-implment-a-json-lib-in-io-by-metaprogramming/" title="一起来实现一个基于元编程的 Io-JSON 库吧！">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">一起来实现一个基于元编程的 Io-JSON 库吧！</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/compute-characteristic-polynomial-in-On3-time/" title="一个 O(n^3) 计算矩阵特征多项式的算法">
-                        <span class="hidden-mobile">一个 O(n^3) 计算矩阵特征多项式的算法</span>
+                      <a href="/reword-a-github-commit-message-without-changing-commit-date/" title="在不改变提交时间的前提下修改一条 commit 的 message">
+                        <span class="hidden-mobile">在不改变提交时间的前提下修改一条 commit 的 message</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
